@@ -1,0 +1,36 @@
+<h2>Train Management</h2>
+
+<!-- Search Trains (UI only, not functional yet) -->
+<div>
+  <label for="search">Search Trains:</label>
+  <input id="search" name="search" type="text" placeholder="Enter train name, source, or destination" />
+  <button type="button">Search</button>
+</div>
+
+<!-- Error Message -->
+<div *ngIf="errorMsg" style="color:red">{{ errorMsg }}</div>
+
+<!-- Train List -->
+<h3>Available Trains</h3>
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Train ID</th>
+      <th>Name</th>
+      <th>Source</th>
+      <th>Destination</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let train of trains">
+      <td>{{ train.id }}</td>
+      <td>{{ train.name }}</td>
+      <td>{{ train.source }}</td>
+      <td>{{ train.destination }}</td>
+      <td>{{ train.departure }}</td>
+      <td>{{ train.arrival }}</td>
+    </tr>
+  </tbody>
+</table>

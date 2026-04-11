@@ -1,0 +1,20 @@
+<h2>Admin Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="usernameOrEmail">Username or Email</label>
+    <input id="usernameOrEmail" formControlName="usernameOrEmail" type="text" (blur)="f['usernameOrEmail'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['usernameOrEmail'].touched || submitted) && f['usernameOrEmail'].errors">
+      <small *ngIf="f['usernameOrEmail'].errors['required']">Username or Email is required.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input id="password" formControlName="password" type="password" (blur)="f['password'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['password'].touched || submitted) && f['password'].errors">
+      <small *ngIf="f['password'].errors['required']">Password is required.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>

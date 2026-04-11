@@ -1,0 +1,52 @@
+<h2>Booking Management</h2>
+
+<!-- Booking List -->
+<h3>Existing Bookings</h3>
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Booking ID</th>
+      <th>Train ID</th>
+      <th>User ID</th>
+      <th>Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Example static row, replace with *ngFor when connected to backend -->
+    <tr>
+      <td>1</td>
+      <td>101</td>
+      <td>501</td>
+      <td>2024-06-01</td>
+      <td>Confirmed</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- New Booking Form -->
+<h3>Create New Booking</h3>
+<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="trainId">Train ID</label>
+    <input id="trainId" formControlName="trainId" type="text" (blur)="f['trainId'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['trainId'].touched || submitted) && f['trainId'].errors">
+      <small *ngIf="f['trainId'].errors['required']">Train ID is required.</small>
+    </div>
+  </div>
+  <div>
+    <label for="userId">User ID</label>
+    <input id="userId" formControlName="userId" type="text" (blur)="f['userId'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['userId'].touched || submitted) && f['userId'].errors">
+      <small *ngIf="f['userId'].errors['required']">User ID is required.</small>
+    </div>
+  </div>
+  <div>
+    <label for="date">Date</label>
+    <input id="date" formControlName="date" type="date" (blur)="f['date'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['date'].touched || submitted) && f['date'].errors">
+      <small *ngIf="f['date'].errors['required']">Date is required.</small>
+    </div>
+  </div>
+  <button type="submit" [disabled]="bookingForm.invalid">Book</button>
+</form>

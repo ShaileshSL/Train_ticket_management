@@ -1,0 +1,18 @@
+<nav class="toolbar">
+  <ng-container *ngIf="isLoggedIn; else guestLinks">
+    <ng-container *ngIf="isUser">
+      <a routerLink="/bookings">Bookings</a> |
+      <a routerLink="/trains">Trains</a> |
+      <a (click)="logout()" style="cursor:pointer">Logout</a>
+    </ng-container>
+    <ng-container *ngIf="isAdmin">
+      <a routerLink="/admin-trains">Admin Train Management</a> |
+      <a (click)="logout()" style="cursor:pointer">Logout</a>
+    </ng-container>
+  </ng-container>
+  <ng-template #guestLinks>
+    <a routerLink="/login">User Login</a> |
+    <a routerLink="/register">Register</a> |
+    <a routerLink="/admin-login">Admin Login</a>
+  </ng-template>
+</nav>

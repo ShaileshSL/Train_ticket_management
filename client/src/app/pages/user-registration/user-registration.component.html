@@ -1,0 +1,42 @@
+<h2>User Registration</h2>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="username">Username</label>
+    <input id="username" formControlName="username" type="text" (blur)="f['username'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['username'].touched || submitted) && f['username'].errors">
+      <small *ngIf="f['username'].errors['required']">Username is required.</small>
+      <small *ngIf="f['username'].errors['minlength']">Username must be at least 3 characters.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" formControlName="email" type="email" (blur)="f['email'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['email'].touched || submitted) && f['email'].errors">
+      <small *ngIf="f['email'].errors['required']">Email is required.</small>
+      <small *ngIf="f['email'].errors['email']">Email must be valid.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input id="password" formControlName="password" type="password" (blur)="f['password'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['password'].touched || submitted) && f['password'].errors">
+      <small *ngIf="f['password'].errors['required']">Password is required.</small>
+      <small *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="confirmPassword">Confirm Password</label>
+    <input id="confirmPassword" formControlName="confirmPassword" type="password" (blur)="f['confirmPassword'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['confirmPassword'].touched || submitted) && f['confirmPassword'].errors">
+      <small *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required.</small>
+    </div>
+    <div *ngIf="(f['confirmPassword'].touched || submitted) && registrationForm.errors?.['mismatch']">
+      <small>Passwords do not match.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+</form>

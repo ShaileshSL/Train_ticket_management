@@ -1,0 +1,78 @@
+<h2>Admin Train Management</h2>
+
+<!-- Error/Success Messages -->
+<div *ngIf="errorMsg" style="color:red">{{ errorMsg }}</div>
+<div *ngIf="successMsg" style="color:green">{{ successMsg }}</div>
+
+<!-- Train List -->
+<h3>All Trains</h3>
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Train ID</th>
+      <th>Name</th>
+      <th>Source</th>
+      <th>Destination</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let train of trains">
+      <td>{{ train.id }}</td>
+      <td>{{ train.name }}</td>
+      <td>{{ train.source }}</td>
+      <td>{{ train.destination }}</td>
+      <td>{{ train.departure }}</td>
+      <td>{{ train.arrival }}</td>
+      <td>
+        <button type="button" (click)="onEdit(train)">Edit</button>
+        <button type="button" (click)="onDelete(train.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Add/Edit Train Form -->
+<h3 *ngIf="!editingTrainId">Add New Train</h3>
+<h3 *ngIf="editingTrainId">Edit Train</h3>
+<form [formGroup]="trainForm" (ngSubmit)="onSubmit()" novalidate>
+  <div>
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" type="text" (blur)="f['name'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['name'].touched || submitted) && f['name'].errors">
+      <small *ngIf="f['name'].errors['required']">Name is required.</small>
+    </div>
+  </div>
+  <div>
+    <label for="source">Source</label>
+    <input id="source" formControlName="source" type="text" (blur)="f['source'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['source'].touched || submitted) && f['source'].errors">
+      <small *ngIf="f['source'].errors['required']">Source is required.</small>
+    </div>
+  </div>
+  <div>
+    <label for="destination">Destination</label>
+    <input id="destination" formControlName="destination" type="text" (blur)="f['destination'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['destination'].touched || submitted) && f['destination'].errors">
+      <small *ngIf="f['destination'].errors['required']">Destination is required.</small>
+    </div>
+  </div>
+  <div>
+    <label for="departure">Departure</label>
+    <input id="departure" formControlName="departure" type="time" (blur)="f['departure'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['departure'].touched || submitted) && f['departure'].errors">
+      <small *ngIf="f['departure'].errors['required']">Departure is required.</small>
+    </div>
+  </div>
+  <div>
+    <label for="arrival">Arrival</label>
+    <input id="arrival" formControlName="arrival" type="time" (blur)="f['arrival'].markAsTouched()" aria-required="true" />
+    <div *ngIf="(f['arrival'].touched || submitted) && f['arrival'].errors">
+      <small *ngIf="f['arrival'].errors['required']">Arrival is required.</small>
+    </div>
+  </div>
+  <button type="submit" [disabled]="trainForm.invalid">{{ editingTrainId ? 'Update Train' : 'Add Train' }}</button>
+  <button *ngIf="editingTrainId" type="button" (click)="onCancelEdit()">Cancel</button>
+</form>
